@@ -1,5 +1,5 @@
 Example upload images hosting on Node js
 
 npm i
-mpm run watch - start server in watch mode
-npm run dev - start server in dev mode
+mpm run dev - start server in dev watch mode
+npm run start - start server in prod mode
