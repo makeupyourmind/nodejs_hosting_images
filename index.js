@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const { Sequelize } = require("sequelize");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const homeController = require(`${__dirname}/controllers/home`);
 const uploadController = require(`${__dirname}/controllers/upload`);
