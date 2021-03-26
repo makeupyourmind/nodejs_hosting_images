@@ -59,7 +59,10 @@
         const imagesPreview = function (input, placeToInsertImagePreview) {
           if (input.files) {
             const filesLength = input.files.length;
-            for (const fileIdx of filesLength) {
+            for (const fileIdx of Array.from(
+              { length: filesLength },
+              (v, k) => k
+            )) {
               const reader = new FileReader();
               reader.onload = function (event) {
                 $($.parseHTML("<img>"))
