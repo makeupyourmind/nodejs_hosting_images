@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>View Uploaded Image</h1>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="preview-images">
+          <img width="200" height="200" src="" id="viewUploadedImg" alt="" />
+        </div>
+      </div>
+      <p>
+        <b id="filename">Filename</b> <br />
+        <b id="date_uploaded">Uploaded</b> <br />
+        <b id="image_size">Original size</b> <br />
+      </p>
+      <a href="/">Upload another photo</a>
+      <a href="/about">About Author</a>
+      <a href="/rules">How to use hosting</a>
+    </div>
+
+    <script>
+      async function ready() {
+        const url = window.location.pathname;
+        const id = url.substring(url.lastIndexOf("/") + 1);
+
+        const res = await fetch(`/images/${id}`);
+        const json = await res.json();
+        console.log(json);
+        if (json) {
+          document.getElementById("viewUploadedImg").src = `/${json.imagePath}`;
+
+          document.getElementById("filename").innerHTML +=
+            ": " + json.originalName;
+          document.getElementById("date_uploaded").innerHTML +=
+            ": " + json.createdAt;
+          document.getElementById("image_size").innerHTML +=
+            ": " + json.fileSize;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", ready);
+    </script>
+  </body>
+</html>
