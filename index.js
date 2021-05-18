@@ -1,6 +1,8 @@
 const express = require("express");
-const app = express();
 const { Sequelize } = require("sequelize");
+const { client } = require("./celery");
+
+const app = express();
 
 const PORT = process.env.PORT || 3000;
 
@@ -33,5 +35,8 @@ app.get("/rules", homeController.getRules);
 app.get("/images/:id", homeController.getImageDataById);
 app.get("/view/:id", homeController.viewUploadedPhoto);
 app.post("/multiple-upload", uploadController.multipleUpload);
+
+process.on("SIGINT", () => client.disconnect()); //catches ctrl+c event
+process.on("exit", () => client.disconnect()); // catches "kill pid" (for example: nodemon restart)
 
 app.listen(PORT, () => console.log(`App is started on PORT - ${PORT}`));

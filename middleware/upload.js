@@ -24,6 +24,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const uploadFiles = multer({ storage: storage }).single("single-file"); //.array("multi-files", 10);
+const uploadFiles = multer({ storage }).single("single-file"); //.array("multi-files", 10);
 const uploadFilesMiddleware = util.promisify(uploadFiles);
 module.exports = uploadFilesMiddleware;
